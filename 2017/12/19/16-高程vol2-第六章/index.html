@@ -115,36 +115,14 @@ obj1.name=<span class="string">'jordan'</span>
 <h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3><blockquote>
 <p>下面的例子模拟了javaScript代码内部的原型链继承部署模式</p>
 </blockquote>
-<pre><code class="js"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params"></span>) </span>{
-  <span class="keyword">this</span>.property = <span class="literal">true</span>;
-}
-
-SuperType.prototype.getSuperValue = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
-  <span class="keyword">return</span> <span class="keyword">this</span>.property;
-};
-
-<span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params"></span>) </span>{
-  <span class="keyword">this</span>.subproperty = <span class="literal">false</span>;
-}
-
-<span class="comment">//inherit from SuperType</span>
-SubType.prototype = <span class="keyword">new</span> SuperType();
-
-SubType.prototype.getSubValue = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
-  <span class="keyword">return</span> <span class="keyword">this</span>.subproperty;
-};
-
-<span class="keyword">var</span> instance = <span class="keyword">new</span> SubType();
-alert(instance.getSuperValue()); <span class="comment">//true</span>
-
-alert(instance <span class="keyword">instanceof</span> <span class="built_in">Object</span>); <span class="comment">//true</span>
-alert(instance <span class="keyword">instanceof</span> SuperType); <span class="comment">//true</span>
-alert(instance <span class="keyword">instanceof</span> SubType); <span class="comment">//true</span>
-
-alert(<span class="built_in">Object</span>.prototype.isPrototypeOf(instance)); <span class="comment">//true</span>
-alert(SuperType.prototype.isPrototypeOf(instance)); <span class="comment">//true</span>
-alert(SubType.prototype.isPrototypeOf(instance)); <span class="comment">//true</span>
-</code></pre>
+<p>  function SuperType() {<br>    this.property = true;<br>  }</p>
+<p>  SuperType.prototype.getSuperValue = function () {<br>    return this.property;<br>  };</p>
+<p>  function SubType() {<br>    this.subproperty = false;<br>  }</p>
+<p>  //inherit from SuperType<br>  SubType.prototype = new SuperType();</p>
+<p>  SubType.prototype.getSubValue = function () {<br>    return this.subproperty;<br>  };</p>
+<p>  var instance = new SubType();<br>  alert(instance.getSuperValue()); //true</p>
+<p>  alert(instance instanceof Object); //true<br>  alert(instance instanceof SuperType); //true<br>  alert(instance instanceof SubType); //true</p>
+<p>  alert(Object.prototype.isPrototypeOf(instance)); //true<br>  alert(SuperType.prototype.isPrototypeOf(instance)); //true<br>  alert(SubType.prototype.isPrototypeOf(instance)); //true</p>
 <p><img src="https://i.loli.net/2017/12/19/5a390f4a02d8c.jpg" alt=""></p>
 <h4 id="重写超类型的方法"><a href="#重写超类型的方法" class="headerlink" title="重写超类型的方法"></a>重写超类型的方法</h4><pre><code class="js"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params"></span>)</span>{
   <span class="keyword">this</span>.property = <span class="literal">true</span>;
