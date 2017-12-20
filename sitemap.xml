@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/12/20/17-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3javaScript%E7%BB%A7%E6%89%BF/</loc>
+    
+    <lastmod>2017-12-20T04:04:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/10/13/14-photoshop/</loc>
     
-    <lastmod>2017-12-20T04:01:50.000Z</lastmod>
+    <lastmod>2017-12-20T04:02:59.000Z</lastmod>
     
   </url>
   
@@ -68,13 +75,6 @@
     <loc>http://yoursite.com/2017/12/06/11-vuex-02/</loc>
     
     <lastmod>2017-12-20T03:55:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/12/20/17-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3javaScript%E7%BB%A7%E6%89%BF/</loc>
-    
-    <lastmod>2017-12-19T23:28:07.000Z</lastmod>
     
   </url>
   
