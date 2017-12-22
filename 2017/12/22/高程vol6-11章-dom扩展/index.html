@@ -32,11 +32,13 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> classNames = element.className.split(<span class="regexp">/\s+/</span>)</span><br><span class="line"></span><br><span class="line">classNames = classNames.some(<span class="function"><span class="keyword">function</span> (<span class="params">v,i,arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(v === <span class="string">'deleteValue'</span>)&#123;</span><br><span class="line">    arr.splice(i,<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">element.className = classNames.join(<span class="string">' '</span>)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>上述方法太麻烦,所以HTML5给每个元素新增了<code>classList</code>属性,该属性是新集合类型<code>DOMTokenList</code>实例,与其他DOM集合类似,<code>DOMTokenList</code>有<code>length</code>属性,可以使用<code>.item()</code>方法和方括号语法,还增加了下列方法</p>
-<pre><code>* `add(value)`：将给定的字符串值添加到列表中。如果值已经存在，就不添加了。 
-* `contains(value) return boolean`：表示列表中是否存在给定的值，如果存在则返回 true，否则返回 false。 
-* `remove(value)`：从列表中删除给定的字符串。 
-* `toggle(value)`：如果列表中已经存在给定的值，删除它；如果列表中没有给定的值，添加它。
-</code></pre></blockquote>
+</blockquote>
+<ul>
+<li><code>add(value)</code>：将给定的字符串值添加到列表中。如果值已经存在，就不添加了。 </li>
+<li><code>contains(value) return boolean</code>：表示列表中是否存在给定的值，如果存在则返回 true，否则返回 false。 </li>
+<li><code>remove(value)</code>：从列表中删除给定的字符串。 </li>
+<li><code>toggle(value)</code>：如果列表中已经存在给定的值，删除它；如果列表中没有给定的值，添加它。</li>
+</ul>
 <p>至此,前面那些代码一行代码搞定<code>element.classList.remove(&quot;deleteValue&quot;)</code>    </p>
 <h3 id="焦点管理"><a href="#焦点管理" class="headerlink" title="焦点管理"></a>焦点管理</h3><blockquote>
 <p>一个元素若想获得焦点,有两种方式</p>
@@ -67,7 +69,7 @@
 <li><code>element.innerHTML</code>属性. 关于用innerHTML在DOM结构中插入新的Script标签,可能达不到预期效果,详情见高程p298</li>
 <li><code>element.outerHTML</code>属性. 连同调用元素(自己)的HTML代码一同返回或设置</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"content"</span>&gt;</span><br><span class="line">  &lt;p&gt;This is a</span><br><span class="line">    &lt;strong&gt;paragraph&lt;<span class="regexp">/strong&gt; with a list following it.&lt;/</span>p&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li&gt;Item <span class="number">1</span>&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">    &lt;li&gt;Item 2&lt;/</span>li&gt;</span><br><span class="line">    &lt;li&gt;Item <span class="number">3</span>&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/u</span>l&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;input type="button" value="Get OuterHtml" onclick="getOuterHTML()"&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script type="text/</span>javascript<span class="string">"&gt;</span></span><br><span class="line"><span class="string">  function getOuterHTML() &#123;</span></span><br><span class="line"><span class="string">    var div = document.getElementById("</span>content<span class="string">");</span></span><br><span class="line"><span class="string">    console.log(div.outerHTML); //works in IE, Safari, and Opera</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">/* 返回结果</span></span><br><span class="line"><span class="string">&lt;div id="</span>content<span class="string">"&gt;</span></span><br><span class="line"><span class="string">  &lt;p&gt;This is a</span></span><br><span class="line"><span class="string">    &lt;strong&gt;paragraph&lt;/strong&gt; with a list following it.&lt;/p&gt;</span></span><br><span class="line"><span class="string">  &lt;ul&gt;</span></span><br><span class="line"><span class="string">    &lt;li&gt;Item 1&lt;/li&gt;</span></span><br><span class="line"><span class="string">    &lt;li&gt;Item 2&lt;/li&gt;</span></span><br><span class="line"><span class="string">    &lt;li&gt;Item 3&lt;/li&gt;</span></span><br><span class="line"><span class="string">  &lt;/ul&gt;</span></span><br><span class="line"><span class="string">&lt;/div&gt;</span></span><br><span class="line"><span class="string">*/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  &lt;div id="content"&gt;</span></span><br><span class="line"><span class="comment">    &lt;p&gt;This is a</span></span><br><span class="line"><span class="comment">      &lt;strong&gt;paragraph&lt;/strong&gt; with a list following it.&lt;/p&gt;</span></span><br><span class="line"><span class="comment">    &lt;ul&gt;</span></span><br><span class="line"><span class="comment">      &lt;li&gt;Item 1&lt;/li&gt;</span></span><br><span class="line"><span class="comment">      &lt;li&gt;Item 2&lt;/li&gt;</span></span><br><span class="line"><span class="comment">      &lt;li&gt;Item 3&lt;/li&gt;</span></span><br><span class="line"><span class="comment">    &lt;/ul&gt;</span></span><br><span class="line"><span class="comment">  &lt;/div&gt;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">  &lt;input type=<span class="string">"button"</span> value=<span class="string">"Get OuterHtml"</span> onclick=<span class="string">"getOuterHTML()"</span>&gt;</span><br><span class="line"></span><br><span class="line">  &lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getOuterHTML</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"content"</span>);</span><br><span class="line">      <span class="built_in">console</span>.log(div.outerHTML); <span class="comment">//works in IE, Safari, and Opera</span></span><br><span class="line">    &#125;</span><br><span class="line">  &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">  </span></span><br><span class="line"><span class="regexp">  /</span>* 返回结果</span><br><span class="line">  &lt;div id=<span class="string">"content"</span>&gt;</span><br><span class="line">    &lt;p&gt;This is a</span><br><span class="line">      &lt;strong&gt;paragraph&lt;<span class="regexp">/strong&gt; with a list following it.&lt;/</span>p&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &lt;li&gt;Item <span class="number">1</span>&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">      &lt;li&gt;Item 2&lt;/</span>li&gt;</span><br><span class="line">      &lt;li&gt;Item <span class="number">3</span>&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/u</span>l&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  */</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li><p><code>element.insertAdjacentHTML(description,innerHTML)</code>方法,<code>description</code>有以下几种形式</p>
 </li>
@@ -104,33 +106,34 @@
 <table>
 <thead>
 <tr>
-<th>number</th>
-<th>node相对于element的节点关系</th>
+<th style="text-align:center">number</th>
+<th style="text-align:center">node相对于element的节点关系</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>无关</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">无关</td>
 </tr>
 <tr>
-<td>2</td>
-<td>居前</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">居前</td>
 </tr>
 <tr>
-<td>4</td>
-<td>居后</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">居后</td>
 </tr>
 <tr>
-<td>8</td>
-<td>包含</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">包含</td>
 </tr>
 <tr>
-<td>16</td>
-<td>被包含</td>
+<td style="text-align:center">16</td>
+<td style="text-align:center">被包含</td>
 </tr>
 </tbody>
 </table>
+<p>|<br> |  |  |<br>| — | — | — |<br>|  |  |  |</p>
 <blockquote>
 <p>所以得到一个兼容函数</p>
 </blockquote>
@@ -162,6 +165,5 @@
 <blockquote>
 <p>希望大家要注意的是，<code>scrollIntoView()</code>和 <code>scrollIntoViewIfNeeded()</code>的作用对象是元素的 容器，而 <code>scrollByLines()</code>和 <code>scrollByPages()</code>影响的则是元素自身<br>由于 <code>element.scrollIntoView()</code>是唯一一个所有浏览器都支持的方法，因此还是这个方法最常用</p>
 </blockquote>
-<p>``` js<br>//在当前元素不可见的时候，让它进入浏览器的视口<br>document.images[0].scrollIntoViewIfNeeded();</p>
-<p>//将页面主体往回滚动 1 页<br>document.body.scrollByPages(-1);</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在当前元素不可见的时候，让它进入浏览器的视口 </span></span><br><span class="line"><span class="built_in">document</span>.images[<span class="number">0</span>].scrollIntoViewIfNeeded();</span><br><span class="line"></span><br><span class="line"><span class="comment">//将页面主体往回滚动 1 页 </span></span><br><span class="line"><span class="built_in">document</span>.body.scrollByPages(<span class="number">-1</span>);</span><br></pre></td></tr></table></figure>
 </div></article></div></main><footer><div class="paginator"><a href="/2017/12/22/高程vol5-10章-dom1/" class="next">上一篇</a></div><div class="copyright"><p>© 2015 - 2017 <a href="http://yoursite.com">choteewang@qq.com</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
