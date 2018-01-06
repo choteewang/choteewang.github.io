@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/12/21/es6-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-vol1/</loc>
+    
+    <lastmod>2018-01-06T14:23:13.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/01/04/%E5%B0%81%E8%A3%85%E6%8B%96%E6%94%BE%E5%AF%B9%E8%B1%A1-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6/</loc>
     
     <lastmod>2018-01-04T02:24:47.000Z</lastmod>
@@ -89,13 +96,6 @@
     <loc>http://yoursite.com/2017/12/22/%E9%AB%98%E7%A8%8Bvol5-10%E7%AB%A0-dom1/</loc>
     
     <lastmod>2017-12-22T06:29:24.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/12/21/es6-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-vol1/</loc>
-    
-    <lastmod>2017-12-22T06:24:13.000Z</lastmod>
     
   </url>
   

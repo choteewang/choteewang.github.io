@@ -128,9 +128,9 @@
 <li><code>名称</code>：一个唯一确定cookie的名称。cookie名称是不区分大小写的，所以myCookie和MyCookie被认为是同一个cookie。然而，实践中最好将cookie名称看作是区分大小写的，因为某些服务器会这样处理 cookie。cookie 的名称必须是经过 URL 编码的。</li>
 <li><code>值</code>：储存在cookie中的字符串值。值必须被URL编码。</li>
 <li><code>域</code>：cookie对于哪个域是有效的。所有向该域发送的请求中都会包含这个cookie信息。这个值可以包含子域（subdomain，如www.wrox.com），也可以不包含它（如.wrox.com，则对于wrox.com的所有子域都有效）。如果没有明确设定，那么这个域会被认作来自设置cookie的那个域。</li>
-<li><code>路径</code>：对于指定域中的那个路径，应该向服务器发送cookie。例如，你可以指定cookie只有从<a href="http://www.wrox.com/books/中才能访问，那么http://www.wrox.com的页面就不会发送cookie信息，即使请求都是来自同一个域的。" target="_blank" rel="external">http://www.wrox.com/books/中才能访问，那么http://www.wrox.com的页面就不会发送cookie信息，即使请求都是来自同一个域的。</a></li>
+<li><code>路径</code>：对于指定域中的那个路径，应该向服务器发送cookie。例如，你可以指定cookie只有从<a href="http://www.wrox.com/books/中才能访问，那么http://www.wrox.com的页面就不会发送cookie信息，即使请求都是来自同一个域的。" target="_blank" rel="noopener">http://www.wrox.com/books/中才能访问，那么http://www.wrox.com的页面就不会发送cookie信息，即使请求都是来自同一个域的。</a></li>
 <li><code>失效时间</code>：表示cookie何时应该被删除的时间戳（也就是，何时应该停止向服务器发送这个cookie）。默认情况下，浏览器会话结束时即将所有cookie删除；不过也可以自己设置删除时间。这个值是个GMT格式的日期（Wdy,DD-Mon-YYYYHH:MM:SSGMT），用于指定应该删除cookie的准确时间。因此，cookie可在浏览器关闭后依然保存在用户的机器上。如果你设置的失效日期是个以前的时间，则cookie会被立刻删除。</li>
-<li><code>安全标志</code>：指定后，cookie只有在使用SSL连接的时候才发送到服务器。例如，cookie信息只能发送给<a href="https://www.wrox.com，而http://www.wrox.com的请求则不能发送cookie。" target="_blank" rel="external">https://www.wrox.com，而http://www.wrox.com的请求则不能发送cookie。</a></li>
+<li><code>安全标志</code>：指定后，cookie只有在使用SSL连接的时候才发送到服务器。例如，cookie信息只能发送给<a href="https://www.wrox.com，而http://www.wrox.com的请求则不能发送cookie。" target="_blank" rel="noopener">https://www.wrox.com，而http://www.wrox.com的请求则不能发送cookie。</a></li>
 </ul>
 <blockquote>
 <p>HTTP/1.1 200 OK<br>Content-type: text/html<br>Set-Cookie: name=value; expires=Mon, 22-Jan-07 07:10:24 GMT; domain=.wrox.com<br>Other-header: other-header-value</p>

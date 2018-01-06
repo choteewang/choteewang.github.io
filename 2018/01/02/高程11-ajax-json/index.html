@@ -103,11 +103,11 @@
 <h2 id="跨源资源共享-CORS"><a href="#跨源资源共享-CORS" class="headerlink" title="跨源资源共享 CORS"></a>跨源资源共享 CORS</h2><p>CORS（Cross-OriginResourceSharing，跨源资源共享）是W3C的一个工作草案，定义了在必须访问跨源资源时，浏览器与服务器应该如何沟通。CORS背后的基本思想，就是使用自定义的HTTP头部让浏览器与服务器进行沟通，从而决定请求或响应是应该成功，还是应该失败。</p>
 <p>在发送HTTP请求时，需要给它附加一个额外的<code>Origin</code>头部，其中包含请求页面的源信息（协议、域名和端口），以便服务器根据这个头部信息来决定是否给予响应。下面是<code>Origin</code>头部的一个示例：</p>
 <blockquote>
-<p>Origin: <a href="http://www.nczonline.net" target="_blank" rel="external">http://www.nczonline.net</a></p>
+<p>Origin: <a href="http://www.nczonline.net" target="_blank" rel="noopener">http://www.nczonline.net</a></p>
 </blockquote>
 <p>如果服务器认为这个请求可以接受，就在<code>Access-Control-Allow-Origin</code>头部中回发相同的源信息（如果是公共资源，可以回发”*”）。例如：</p>
 <blockquote>
-<p>Access-Control-Allow-Origin:<a href="http://www.nczonline.net" target="_blank" rel="external">http://www.nczonline.net</a></p>
+<p>Access-Control-Allow-Origin:<a href="http://www.nczonline.net" target="_blank" rel="noopener">http://www.nczonline.net</a></p>
 </blockquote>
 <p>如果没有这个头部，或者有这个头部但源信息不匹配，浏览器就会驳回请求。正常情况下，浏览器会处理请求。注意，请求和响应都不包含cookie信息。</p>
 <blockquote>
@@ -126,7 +126,7 @@
 </ul>
 <p>例如:</p>
 <blockquote>
-<p>Origin: <a href="http://www.nczonline.net" target="_blank" rel="external">http://www.nczonline.net</a><br>Access-Control-Request-Method: POST<br>Access-Control-Request-Headers: NCZ</p>
+<p>Origin: <a href="http://www.nczonline.net" target="_blank" rel="noopener">http://www.nczonline.net</a><br>Access-Control-Request-Method: POST<br>Access-Control-Request-Headers: NCZ</p>
 </blockquote>
 <p>发送这个请求后，服务器可以决定是否允许这种类型的请求。服务器通过在响应中发送如下头部与浏览器进行沟通。</p>
 <ul>
@@ -137,7 +137,7 @@
 </ul>
 <p>例如:</p>
 <blockquote>
-<p>Access-Control-Allow-Origin: <a href="http://www.nczonline.net" target="_blank" rel="external">http://www.nczonline.net</a><br>Access-Control-Allow-Methods: POST, GET<br>Access-Control-Allow-Headers: NCZ<br>Access-Control-Max-Age: 1728000</p>
+<p>Access-Control-Allow-Origin: <a href="http://www.nczonline.net" target="_blank" rel="noopener">http://www.nczonline.net</a><br>Access-Control-Allow-Methods: POST, GET<br>Access-Control-Allow-Headers: NCZ<br>Access-Control-Max-Age: 1728000</p>
 </blockquote>
 <p><code>Preflight</code>请求结束后，结果将按照响应中指定的时间缓存起来。而为此付出的代价只是第一次发送这种请求时会多一次HTTP请求。</p>
 <blockquote>
@@ -226,7 +226,7 @@
 <li><code>event.reason</code>是一个字符串，包含服务器发回的消息。可以把这些信息显示给用户，也可以记录到日志中以便将来分析。</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> socket = <span class="keyword">new</span> WebSocket(<span class="string">"ws://www.example.com/server.php"</span>);</span><br><span class="line"></span><br><span class="line">socket.onopen = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">"Connection established."</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">socket.onerror = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">"Connection error."</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">socket.onclose = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Was clean? "</span> + event.wasClean + <span class="string">" Code="</span> + event.code + <span class="string">" Reason="</span> + event.reason);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h1 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h1><h3 id="早期浏览器的shim"><a href="#早期浏览器的shim" class="headerlink" title="早期浏览器的shim"></a>早期浏览器的shim</h3><p><a href="https://github.com/douglascrockford/JSON-js" target="_blank" rel="external">JSON.js</a></p>
+<h1 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h1><h3 id="早期浏览器的shim"><a href="#早期浏览器的shim" class="headerlink" title="早期浏览器的shim"></a>早期浏览器的shim</h3><p><a href="https://github.com/douglascrockford/JSON-js" target="_blank" rel="noopener">JSON.js</a></p>
 <h3 id="JSON-stringify"><a href="#JSON-stringify" class="headerlink" title="JSON.stringify()"></a>JSON.stringify()</h3><p><code>JSON.stringify(json[,filter,number]) return string</code>,<code>filter</code>是一个过滤器,可以是一个数组或函数, <code>number</code>代表缩进字符数,表示是否在返回的<code>string</code>中保持缩进,同时也会插入换行符</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">  <span class="string">"title"</span>: <span class="string">"Professional JavaScript"</span>,</span><br><span class="line">  <span class="string">"authors"</span>: [<span class="string">"Nicholas C. Zakas"</span>],</span><br><span class="line">  edition: <span class="number">3</span>,</span><br><span class="line">  year: <span class="number">2011</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> jsonText = <span class="built_in">JSON</span>.stringify(book, [<span class="string">"title"</span>, <span class="string">"edition"</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123;"title":"Professional JavaScript","edition":3&#125;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
