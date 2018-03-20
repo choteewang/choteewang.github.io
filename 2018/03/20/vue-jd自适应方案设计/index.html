@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 记一次vue项目的自适应方案设计 hotcss + px2rem · choteewang</title><meta name="description" content="记一次vue项目的自适应方案设计 hotcss + px2rem - choteewang@qq.com"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="choteewang"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">CHOTEE'S BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">LIST</a></li><li class="nav-list-item"><a href="https://github.com/choteewang" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">记一次vue项目的自适应方案设计 hotcss + px2rem</h1><div class="post-info">2018年3月20日</div><div class="post-content"><h2 id="自适应方案设计"><a href="#自适应方案设计" class="headerlink" title="自适应方案设计"></a>自适应方案设计</h2><p>做到一份代码, 构建出的app适配各种设备, 根据设备的屏幕尺寸, 自动缩放所有css尺寸, 让所有设备的浏览体验基本接近</p>
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> hotcss + px2rem 实现 vue 项目的自适应方案设计  · choteewang</title><meta name="description" content="hotcss + px2rem 实现 vue 项目的自适应方案设计  - choteewang@qq.com"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="choteewang"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">CHOTEE'S BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">LIST</a></li><li class="nav-list-item"><a href="https://github.com/choteewang" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">hotcss + px2rem 实现 vue 项目的自适应方案设计 </h1><div class="post-info">2018年3月20日</div><div class="post-content"><h2 id="自适应方案设计"><a href="#自适应方案设计" class="headerlink" title="自适应方案设计"></a>自适应方案设计</h2><p>做到一份代码, 构建出的app适配各种设备, 根据设备的屏幕尺寸, 自动缩放所有css尺寸, 让所有设备的浏览体验基本接近</p>
 <h3 id="核心实现原理"><a href="#核心实现原理" class="headerlink" title="核心实现原理:"></a>核心实现原理:</h3><ul>
 <li><code>hotcss</code>利用<code>viewport</code>和<code>设备像素比(dpr)</code>调整html标签的<code>font-size</code>(Rem基准像素)</li>
 <li>使用<code>px2rem-loader</code>实现<code>px</code>向<code>rem</code>的转化</li>
@@ -18,19 +18,19 @@
 </ul>
 </li>
 </ul>
-<p><img src="media/15215345794644/15213620087815.jpg" alt="15213620087815"></p>
+<p><img src="https://i.loli.net/2018/03/20/5ab0ceccad75e.jpg" alt="15213620087815"></p>
 <blockquote>
 <p>viewport</p>
 </blockquote>
 <p>viewport分三类: <code>layout viewport</code>, <code>visual viewport</code>, <code>ideal viewport</code></p>
 <ul>
-<li><code>layout viewport</code><br><img src="media/15215345794644/15213628251435.jpg" alt="15213628251435"></li>
+<li><code>layout viewport</code><br><img src="https://i.loli.net/2018/03/20/5ab0ceccc9890.jpg" alt="15213628251435"></li>
 </ul>
 <p>这个<code>layout viewport</code>的宽度可以通过<code>document.documentElement.clientWidth</code> 来获取。</p>
 <ul>
-<li><code>ideal viewport</code> 与 <code>visual viewport</code><br>在<code>meta</code>标签的<code>user-scalable=no</code>时,<code>ideal viewport</code>就是<code>visual viewport</code>, 宽度是屏幕宽度<code>window.innerWidth</code><br><img src="media/15215345794644/15213632335178.jpg" alt="15213632335178"></li>
+<li><code>ideal viewport</code> 与 <code>visual viewport</code><br>在<code>meta</code>标签的<code>user-scalable=no</code>时,<code>ideal viewport</code>就是<code>visual viewport</code>, 宽度是屏幕宽度<code>window.innerWidth</code><br><img src="https://i.loli.net/2018/03/20/5ab0ceccd2587.jpg" alt="15213632335178"></li>
 </ul>
-<p><code>meta</code> 标签的<code>width=device-width</code>其实就是将<code>ideal-viewport</code>的宽度赋值给了<code>layout viewport</code><br><img src="media/15215345794644/15213640815087.jpg" alt="15213640815087"></p>
+<p><code>meta</code> 标签的<code>width=device-width</code>其实就是将<code>ideal-viewport</code>的宽度赋值给了<code>layout viewport</code><br><img src="https://i.loli.net/2018/03/20/5ab0ceccdc066.jpg" alt="15213640815087"></p>
 <h3 id="核心工作原理"><a href="#核心工作原理" class="headerlink" title="核心工作原理"></a>核心工作原理</h3><blockquote>
 <p><code>hotcss</code>利用<code>viewport</code>和<code>设备像素比(dpr)</code>调整基准像素</p>
 </blockquote>
@@ -40,7 +40,7 @@
 <li>rem</li>
 </ul>
 <p><code>设计稿fontSize基准值(remUnit)</code>/<code>设计稿物理像素宽度</code> = <code>当前设备html标签fontSize值(所求)</code>/当前设备<code>物理像素宽度</code></p>
-<p><img src="media/15215345794644/15213642316299.jpg" alt="15213642316299"></p>
+<p><img src="https://i.loli.net/2018/03/20/5ab0ceccd1164.jpg" alt="15213642316299"></p>
 <p>对于上图的解释: </p>
 <ul>
 <li>左面是<code>设计稿</code>, 右面是<code>设备</code></li>
