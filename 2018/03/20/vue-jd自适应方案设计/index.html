@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 记一次vue项目的自适应方案设计 hotcss + px2rem · choteewang</title><meta name="description" content="记一次vue项目的自适应方案设计 hotcss + px2rem - choteewang@qq.com"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="choteewang"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">CHOTEE'S BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">LIST</a></li><li class="nav-list-item"><a href="https://github.com/choteewang" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">记一次vue项目的自适应方案设计 hotcss + px2rem</h1><div class="post-info">2018年3月20日</div><div class="post-content"><h1 id="记一次vue项目的自适应方案设计-hotcss-px2rem"><a href="#记一次vue项目的自适应方案设计-hotcss-px2rem" class="headerlink" title="记一次vue项目的自适应方案设计 hotcss + px2rem"></a>记一次vue项目的自适应方案设计 hotcss + px2rem</h1><h2 id="自适应方案设计"><a href="#自适应方案设计" class="headerlink" title="自适应方案设计"></a>自适应方案设计</h2><p>// 功能</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><blockquote>
+<p><code>css像素</code>, <code>逻辑像素</code>, <code>设备像素</code>, <code>物理像素</code>, <code>设备像素比</code></p>
+</blockquote>
+<ul>
+<li><a href="https://github.com/jawil/blog/issues/21" target="_blank" rel="noopener">https://github.com/jawil/blog/issues/21</a></li>
+<li><code>css像素</code> 就是 <code>设备独立像素(dip)</code></li>
+<li><code>设备像素</code> : <code>设备像素</code> 就是 <code>物理像素</code> 若在retina屏幕上的<code>设备像素比</code>=2, 则显示1px<code>css像素</code>需要2个<code>物理像素</code>, 显示宽高都是1px(<code>css像素</code>)的方块需要2*2个(<code>设备像素</code>)</li>
+<li><code>设备像素比(dpr)</code>: <ul>
+<li>广义定义: <code>设备像素</code>(<code>物理像素</code>) / <code>设备独立像素(dip)</code>(<code>css像素</code>) , </li>
+<li>同义定义: <code>屏幕横向设备像素</code> / <code>理想视口的宽</code></li>
+<li>获取方式: <code>window.devicePixelRatio</code></li>
+<li>与<code>initial-scale</code>的关系: 互为倒数</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2018/03/20/5ab0ceccad75e.jpg" alt="15213620087815"></p>
+<blockquote>
+<p>viewport</p>
+</blockquote>
+<p>viewport分三类: <code>layout viewport</code>, <code>visual viewport</code>, ``</p>
+<ul>
+<li><code>layout viewport</code><br><img src="https://i.loli.net/2018/03/20/5ab0ceccc9890.jpg" alt="15213628251435"></li>
+</ul>
+<p>这个<code>layout viewport</code>的宽度可以通过<code>document.documentElement.clientWidth</code> 来获取。</p>
+<ul>
+<li><code>ideal viewport</code> 与 <code>visual viewport</code><br>在<code>meta</code>标签的<code>user-scalable=no</code>时,<code>ideal viewport</code>就是<code>visual viewport</code>, 宽度是屏幕宽度<code>window.innerWidth</code><br><img src="https://i.loli.net/2018/03/20/5ab0ceccd2587.jpg" alt="15213632335178"></li>
+</ul>
+<p><code>meta</code> 标签的<code>width=device-width</code>其实就是将<code>ideal-viewport</code>的宽度赋值给了<code>layout viewport</code></p>
+<p><img src="https://i.loli.net/2018/03/20/5ab0ceccdc066.jpg" alt="15213640815087"></p>
+<h3 id="核心工作原理"><a href="#核心工作原理" class="headerlink" title="核心工作原理"></a>核心工作原理</h3><blockquote>
+<p><code>hotcss</code>利用<code>viewport</code>和<code>设备像素比(dpr)</code>调整基准像素</p>
+</blockquote>
+<ul>
+<li>rem</li>
+</ul>
+<p><code>设计稿fontSize基准值(remUnit)</code>/<code>设计稿物理像素宽度</code> = <code>当前设备html标签fontSize值(所求)</code>/当前设备<code>物理像素宽度</code>(媒体查询适配)</p>
+<p><img src="https://i.loli.net/2018/03/20/5ab0ceccd1164.jpg" alt="15213642316299"></p>
+<p>对于上图的解释: </p>
+<ul>
+<li>左面是<code>设计稿</code>, 右面是<code>设备</code></li>
+<li><code>设计稿物理像素宽度</code>是 320px(<code>css像素</code>丈量下的<code>ideal port</code>宽度) * 2(<code>dpr</code>) = 640(<code>物理像素</code>)</li>
+<li>若此时适配到了一个<code>ideal port</code>宽度为375px,<code>dpr</code>=3的设备</li>
+<li>则<code>设备物理像素宽度</code> = 375px(<code>css像素</code>丈量下的<code>ideal port</code>宽度) * 3(<code>dpr</code>) = 1125(<code>物理像素</code>)</li>
+<li>与<code>rem</code>关系, <code>remUnit</code>(设计稿html标签fontSize基准值)/ <code>设备html标签fontSize值</code> = <code>设计稿物理像素宽度</code> / <code>设备物理像素宽度</code></li>
+<li>若此时设计稿页面上有一个20px<em>20px的<code>button</code>, 则<code>hotcss</code>应将其调整为 20 </em> <code>设计稿物理像素宽度</code> / <code>设备物理像素宽度</code> = 20 * 1125/640 = 35.15625px</li>
+</ul>
+<blockquote>
+<p>利用px2rem自动转换css单位</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line">&#123;</span><br><span class="line">  test: <span class="regexp">/\.vue$/</span>,</span><br><span class="line">  loader: <span class="string">'vue-loader'</span>,</span><br><span class="line">  options: &#123;</span><br><span class="line">    loaders: &#123;</span><br><span class="line">      <span class="comment">// npm install px2rem-loader</span></span><br><span class="line">      <span class="comment">// 叹号分隔loader, 从右向左加载</span></span><br><span class="line">      <span class="comment">// 开启px2rem, npm install px2rem-loader</span></span><br><span class="line">      <span class="comment">// remUnit = 75(在设计稿中html字体的大小, 也可理解为在原设计稿中1rem=多少像素)</span></span><br><span class="line">      <span class="comment">// 设计稿fontSize基准值(remUnit)/设计稿物理像素宽度 = 当前设备html标签fontSize值(所求)/当前设备物理像素宽度(媒体查询适配)</span></span><br><span class="line">      <span class="comment">// Precision = 8 转换小数精度</span></span><br><span class="line">      css: <span class="string">'vue-style-loader!css-loader!px2rem-loader?remUnit=75&amp;remPreceision=8'</span>,</span><br><span class="line">      scss: <span class="string">'vue-style-loader!css-loader!px2rem-loader?remUnit=75&amp;remPrecision=8!sass-loader'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>配置了<code>px2rem</code>后, 再写一个<code>80px</code>的css会被转化为<code>1.06666667rem</code>, 满足8位小数(Precision = 8), 且 1.06666667rem * 75(<code>remUnit</code>) = 80px</p>
+</li>
+<li><p>注意, 我们只需关心原始设计图的css尺寸开发, <code>hotcss</code>会根据不同设备的<code>dpr</code>与<code>ideal viewport</code>宽度来创建meta标签(将<code>initial-scale</code>设置为<code>dpr</code>的倒数), 同时设置html标签的<code>fontSize</code></p>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2018/03/16/webpack02/" class="next">上一篇</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://yoursite.com">choteewang@qq.com</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
