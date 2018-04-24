@@ -40,7 +40,7 @@
 <p>第二个入口是<code>new Watcher()</code>, 从这个方向, <code>watcher</code>在实例化的过程中调用了第一个入口设置好的<code>getter</code>, 向对应的<code>data[key]</code>的<code>dep</code>实例中维护的观察者列表<code>subs</code>添加依赖项(<code>watcher</code>自己), 并在<code>data[key]</code>被重新赋值时被<code>dep</code>通知(<code>dep.notify</code>), 进行自我更新<code>watcher.update</code></p>
 <p>那么有两个问题浮现在我们眼前: </p>
 <ul>
-<li><strong>为什么<code>dep</code>本身不是一个列表 ?</strong> </li>
+<li><strong>为什么要用多个<code>dep</code>, 而不是维护一个全局<code>dep</code>对象 ?</strong> </li>
 <li><strong>什么时候调用new Watcher() ?</strong></li>
 </ul>
 <p>这就要涉及到”模板编译”(<code>Compile</code>)过程, 将在下篇中介绍.</p>
